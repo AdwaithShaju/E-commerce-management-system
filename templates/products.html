@@ -1,0 +1,44 @@
+{% extends 'base.html' %}
+
+{% block title %}
+    Products
+{% endblock title %}
+
+{% block body %}
+    <div class="container mt-5">
+        <div class="row">
+            <div class="col-12 text-center">
+                <h3>Products</h3>
+            </div>
+        </div>
+
+        {% with messages=get_flashed_messages(with_categories=true) %}
+            {% if messages %}
+                {% for category, message in messages %}
+                    <div class="alert alert-{{category}} alert-dismissible fade show mt-3" role="alert">
+                        {{message}}
+                    </div>
+                {% endfor %}
+            {% endif %}
+        {% endwith %}
+
+        <div class="row mt-3">
+            {% for p in query %}
+                <div class="col-md-4 mb-4">
+                    <div class="card">
+                        <img src="{{p.productdesc}}" class="card-img-top" alt="{{p.productname}}">
+                        <div class="card-body">
+                            <h5 class="card-title">{{p.productname}}</h5>
+                            
+                            <hr>
+                            <p><strong>Price:</strong> {{p.price}}</p>
+                            <p><strong>Owner:</strong> {{p.username}}</p>
+                            <p><strong>Email:</strong> {{p.email}}</p>
+                            <a href="https://mail.google.com/mail/?view=cm&fs=1&tf=1&to={{p.email}}" target="_blank" class="btn btn-success btn-block">Purchase</a>
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+{% endblock body %}
